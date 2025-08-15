@@ -22,6 +22,16 @@ function Weather() {
     console.log(result);
   }
 
+  useEffect(() => {
+    const storedInfo = localStorage.getItem('data');
+
+    if (storedInfo) setWeatherInfo(JSON.parse(storedInfo));
+  }, [])
+
+  useEffect(() => {
+    weatherInfo && localStorage.setItem('data', JSON.stringify(weatherInfo));
+  }, [weatherInfo])
+
  /* useEffect(() => {
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
