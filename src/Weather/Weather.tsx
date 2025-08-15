@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import searchIcon from '../assets/images/search.png';
 import Clouds from '../assets/images/clouds.png';
 import Rain from '../assets/images/rain.png';
@@ -16,10 +16,22 @@ function Weather() {
 
   const searchHandler = async () => {
     console.log('clicked');
+    console.log(input);
     const result = await getWeather(input);
     if (result) setWeatherInfo(result);
     console.log(result);
   }
+
+ /* useEffect(() => {
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        searchHandler();
+        return
+      }
+    });
+
+    document.removeEventListener('keydown', searchHandler);
+  }, [input])*/
   
 
   return (
@@ -27,8 +39,7 @@ function Weather() {
       <div className='bg-linear-to-r from-cyan-500 to-blue-500 w-[450px] h-[600px] rounded-2xl p-[40px]'>
         <div className='flex w-full gap-2'>
           <input type="search" value={input} className='flex-1 bg-white py-3 px-5 outline-0 text-black rounded-3xl' onChange={(e) => setInput(e.target.value)} placeholder='Search'/>
-          <button onClick={() => {searchHandler();
-          }} type='button' className='w-[50px] bg-white flex items-center justify-center rounded-full'><img src={searchIcon} alt="" width='20'/></button>
+          <button onClick={() => {searchHandler()}} type='button' className='w-[50px] bg-white flex items-center justify-center rounded-full'><img src={searchIcon} alt="" width='20'/></button>
         </div>
 
         <div className='flex items-center flex-col gap-[20px] mb-[60px]'>
