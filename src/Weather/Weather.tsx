@@ -34,9 +34,9 @@ function Weather() {
         <div className='flex items-center flex-col gap-[20px] mb-[60px]'>
           <img src={weatherInfo?.img === 'Clear' ? Clear : weatherInfo?.img === 'Clouds' ? Clouds : weatherInfo?.img === 'Drizzle' ? Drizzle : weatherInfo?.img === 'Mist' ? Mist : weatherInfo?.img === 'Rain' ? Rain : Clouds} alt="" />
 
-          <p className='text-3xl font-bold'>{weatherInfo && weatherInfo.temp}°C</p>
+          <p className='text-3xl font-bold'>{weatherInfo ? weatherInfo.temp : '0'}°C</p>
 
-          <p className='text-4xl font-bold'>{weatherInfo && weatherInfo.name}</p>
+          <p className='text-4xl font-bold'>{weatherInfo ? weatherInfo.name : 'Unknown'}</p>
         </div>
 
         <div className='flex justify-between'>
@@ -44,7 +44,7 @@ function Weather() {
             <img src={humidityImg} alt="" width='40'/>
 
             <div className='text-[18px] font-semibold'>
-              <p>{weatherInfo && weatherInfo.humidity}%</p>
+              <p>{weatherInfo ? weatherInfo.humidity : '0'}%</p>
               <p>Humidity</p>
             </div>
           </div>
@@ -53,7 +53,7 @@ function Weather() {
             <img src={windSpeedImg} alt="" width='40'/>
             
             <div className='text-[18px] font-semibold'>
-              <p>{weatherInfo && weatherInfo.windSpeed}km/h</p>
+              <p>{weatherInfo ? weatherInfo.windSpeed : '0'}km/h</p>
               <p>Wind Speed</p>
             </div>
           </div>
