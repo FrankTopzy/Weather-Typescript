@@ -20,8 +20,10 @@ export async function getWeather(city: string): Promise<WeatherType | void> {
 
   if (!response.ok) {
     alert('Please enter a valid city name!!!!!!!!');
+    throw new Error(`HTTP error! status: ${response.status}`)
     return;
   }
+  
 
   const result: WeatherType = {
     id: data.id,
@@ -31,6 +33,12 @@ export async function getWeather(city: string): Promise<WeatherType | void> {
     humidity: data.main.humidity,
     img: data.weather[0].main
   }
+
+ /* const dataResult = weatherSchema.array().safeParse(result);
+
+  if(!dataResult.success) {
+    throw new Error(`Invalid data: ${dataResult.error}`)
+  }*/
 
   return result;
 }
