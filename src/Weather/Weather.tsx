@@ -12,7 +12,7 @@ import { getWeather, type WeatherType } from '../Data/apiWeatherList';
 
 function Weather() {
   const [input, setInput] = useState<string>('');
-  const [weatherInfo, setWeatherInfo] = useState<WeatherType | null>(null)
+  const [weatherInfo, setWeatherInfo] = useState<WeatherType | null>(null);
 
   const searchHandler = async () => {
     console.log('clicked');

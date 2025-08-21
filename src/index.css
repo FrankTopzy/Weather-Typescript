@@ -15,6 +15,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  background: #090029;
+  min-height: 100vh;
+}
+
 a {
   text-decoration: none;
 }
