@@ -1,51 +1,52 @@
 //import React from 'react'
+import Styles from './Gemini.module.css';
 
 function Gemini() {
   return (
-    <div className="container max-w-[1000px] py-[70px] mx-auto">
+    <div className={`${Styles.container} max-w-[980px] pt-[70px] pb-[60px] px-0 mx-[auto]`}>
       {/* App Header */}
-      <header className="app-header">
-        <h1 className="heading text-3xl font-semibold">Hello, there</h1>
-        <h2 className="sub-heading text-3xl font-semibold">How can I help you</h2>
+      <header className={`${Styles.app_header}`}>
+        <h1 className={`heading text-3xl font-semibold`}>Hello, there</h1>
+        <h2 className={`sub-heading text-3xl font-semibold`}>How can I help you</h2>
       </header>
 
       {/* Suggestions List */}
-      <ul className="suggestions flex gap-3.5 mt-[87px]">
-        <li className="suggestions_item">
-          <p className="text">Design a home office setup for remote work under $500</p>
+      <ul className={`${Styles.suggestions} flex gap-3.5 mt-[87px]`}>
+        <li className={`suggestions_item`}>
+          <p className={`text`}>Design a home office setup for remote work under $500</p>
 
           <span className="material-symbols-rounded">draw</span>
         </li>
 
-        <li className="suggestions_item">
-          <p className="text">Design a home office setup for remote work under $500</p>
+        <li className={`suggestions_item`}>
+          <p className={`text`}>Design a home office setup for remote work under $500</p>
 
           <span className="material-symbols-rounded">lightbulb</span>
         </li>
 
-        <li className="suggestions_item">
-          <p className="text">Design a home office setup for remote work under $500</p>
+        <li className={`suggestions_item`}>
+          <p className={`text`}>Design a home office setup for remote work under $500</p>
 
-          <button type="button"><img src="" alt="" /></button>
+          <span className="material-symbols-rounded">explore</span>
         </li>
 
-        <li className="suggestions_item">
-          <p className="text">Design a home office setup for remote work under $500</p>
+        <li className={`suggestions_item`}>
+          <p className={`text`}>Design a home office setup for remote work under $500</p>
 
-          <button type="button"><img src="" alt="" /></button>
+          <span className="material-symbols-rounded">code_blocks</span>
         </li>
       </ul>
 
       {/* Prompt Container */}
-      <div className="prompt-container">
-        <div className="prompt-wrapper">
-          <form className="prompt_form flex">
-            <div className="flex-1 flex">
-              <input type="text" className="prompt_input flex-1"/>
+      <div className={`prompt_container`}>
+        <div className={`${Styles.prompt_wrapper}`}>
+          <form className={`prompt_form flex`}>
+            <div className={`flex-1 flex`}>
+              <input type="text" className={`prompt_input flex-1`}/>
 
-              <div className="prompt_actions">
-                <button className="w-[40px] h-[40px]"><span className="material-symbols-rounded">attach_file</span></button>
-                <button><span className="material-symbols-rounded">arrow_upward_alt</span></button>
+              <div className={`prompt_actions`}>
+                <button className={`material-symbols-rounded w-[40px] h-[40px]`}>attach_file</button>
+                <button className="material-symbols-rounded">arrow_upward_alt</button>
               </div>
             </div>
 
@@ -54,7 +55,7 @@ function Gemini() {
           </form>
         </div>
 
-        <p className="disclaimer-text">Gemini can make mistakes, so double-check it.</p>
+        <p className={`${Styles.disclaimer_text}`}>Gemini can make mistakes, so double-check it.</p>
       </div>
     </div>
   )
