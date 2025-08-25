@@ -1,4 +1,97 @@
-.container :where(.app_header, .suggestions, .prompt_wrapper, .disclaimer_text) {
+.container :where(.app_header, .suggestions, .prompt_wrapper, .message) {
   width: 100%;
   padding: 0 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.container :is(.app_header, .suggestions) {
+  display: none;
+}
+
+.heading {
+  background: linear-gradient(to right, #1d7efd, #8f6fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.suggestions {
+  scrollbar-width: none;
+}
+
+.suggestions > li {
+  width: 228px;
+  padding: 18px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  cursor: pointer;
+  background: var(--secondary-color);
+  border-radius: 12px;
+  transition: 0.4s ease;
+}
+
+.suggestions > li:hover {
+  background: var(--secondary-hover-color);
+}
+
+.suggestions > li > p {
+  font-size: 1.1rem;
+}
+
+.suggestions > li > span {
+  height: 45px;
+  width: 45px;
+  margin-top: 35px;
+  background: var(--primary-color);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+}
+
+.message {
+  display: flex;
+  gap: 11px;
+}
+
+.message > p {
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+.send_btn {
+  display: none;
+}
+
+.prompt_form {
+  flex: 1;
+}
+
+.prompt_input:valid ~ .prompt_actions .send_btn {
+  display: inline;
+}
+
+.prompt_wrapper > button {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  background: var(--secondary-color);
+  margin-left: 10px;
+}
+
+.prompt_actions button {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.prompt_actions button:hover {
+  background: var(--secondary-hover-color);
 }

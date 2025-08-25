@@ -1,17 +1,29 @@
 //import React from 'react'
 import Styles from './Gemini.module.css';
+import geminiLogo from '../../public/gemini-chatbot-logo.svg';
+import { useState, type FormEvent } from 'react';
 
-function Gemini() {
+function Gemini() { 
+  const [input, setInput] = useState<string>('');
+
+  const handleSubmission = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!input) return;
+    console.log(input.trim());
+    setInput('')
+  }
+
   return (
     <div className={`${Styles.container} max-w-[980px] pt-[70px] pb-[60px] px-0 mx-[auto]`}>
       {/* App Header */}
-      <header className={`${Styles.app_header}`}>
-        <h1 className={`heading text-3xl font-semibold`}>Hello, there</h1>
-        <h2 className={`sub-heading text-3xl font-semibold`}>How can I help you</h2>
+      <header className={`${Styles.app_header} mt-[4vh]`}>
+        <h1 className={`${Styles.heading} text-[3rem] w-[fit-content] font-semibold`}>Hello, there</h1>
+        <h2 className={`sub-heading font-semibold text-[2.6rem] mt-[-5px] text-[var(--subheading-color)]`}>How can I help you?</h2>
       </header>
 
       {/* Suggestions List */}
-      <ul className={`${Styles.suggestions} flex gap-3.5 mt-[87px]`}>
+      <ul className={`${Styles.suggestions} flex gap-[15px] mt-[9.5vh] overflow-x-auto`}>
         <li className={`suggestions_item`}>
           <p className={`text`}>Design a home office setup for remote work under $500</p>
 
@@ -21,41 +33,57 @@ function Gemini() {
         <li className={`suggestions_item`}>
           <p className={`text`}>Design a home office setup for remote work under $500</p>
 
-          <span className="material-symbols-rounded">lightbulb</span>
+          <span className="material-symbols-rounded text-[#28a745]">lightbulb</span>
         </li>
 
         <li className={`suggestions_item`}>
           <p className={`text`}>Design a home office setup for remote work under $500</p>
 
-          <span className="material-symbols-rounded">explore</span>
+          <span className="material-symbols-rounded text-[#ffc107]">explore</span>
         </li>
 
         <li className={`suggestions_item`}>
           <p className={`text`}>Design a home office setup for remote work under $500</p>
 
-          <span className="material-symbols-rounded">code_blocks</span>
+          <span className="material-symbols-rounded text-[#6f42c1]">code_blocks</span>
         </li>
       </ul>
 
-      {/* Prompt Container */}
-      <div className={`prompt_container`}>
-        <div className={`${Styles.prompt_wrapper}`}>
-          <form className={`prompt_form flex`}>
-            <div className={`flex-1 flex`}>
-              <input type="text" className={`prompt_input flex-1`}/>
-
-              <div className={`prompt_actions`}>
-                <button className={`material-symbols-rounded w-[40px] h-[40px]`}>attach_file</button>
-                <button className="material-symbols-rounded">arrow_upward_alt</button>
-              </div>
-            </div>
-
-            <button className="material-symbols-rounded">light_mode</button>
-            <button className="material-symbols-rounded">delete</button>
-          </form>
+      {/* Suggestions List */}
+      <div className={`${Styles.chats_container} flex gap-[20px] flex-col`}>
+        <div className={`${Styles.message} ${Styles.user_message} flex-col items-end`}>
+          <p className='py-[12px] px-[16px] max-w-[75%] rounded-tl-[13px] rounded-tr-[13px] rounded-br-[3px] rounded-bl-[13px] bg-[var(--secondary-color)]'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam magnam accusantium corrupti mollitia modi quidem delectus soluta libero perspiciatis unde.
+          </p>
         </div>
 
-        <p className={`${Styles.disclaimer_text}`}>Gemini can make mistakes, so double-check it.</p>
+        <div className={`${Styles.message} ${Styles.bot_message} my-[9px] mx-auto`}>
+          <img src={geminiLogo} alt="bot_logo" width='40' className='rounded-full bg-[var(--secondary-color)] border-[1px]  border-[var(--secondary-hover-color)] shrink-0 p-[6px] self-start mr-[-7px]'/>
+          <p className='max-w-[75%]'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam magnam accusantium corrupti mollitia modi quidem delectus soluta libero perspiciatis unde.
+          </p>
+        </div>
+      </div>
+
+      {/* Prompt Container */}
+      <div className={`prompt_container fixed bottom-0 left-0 w-full py-[16px] bg-[var(--primary-color)]`}>
+        <div className={`${Styles.prompt_wrapper} flex`}>
+          <form className={`${Styles.prompt_form}`} onSubmit={handleSubmission}>
+            <div className={`h-[52px] flex-1 flex items-center bg-[var(--secondary-color)] rounded-3xl`}>
+              <input type="text" value={input} className={`${Styles.prompt_input} h-full flex-1 pl-[20px] outline-0 text-[var(--text-color)] placeholder:text-[var(--placeholder-color)] text-[1rem]`} placeholder='Ask Gemini' required onChange={(e) => setInput(e.target.value)}/>
+
+              <div className={`${Styles.prompt_actions} flex gap-2 mr-[5px]`}>
+                <button className={`material-symbols-rounded w-[40px] h-[40px]`} type='button'>attach_file</button>
+                <button className={`${Styles.send_btn} hover:bg-[#0264e3] material-symbols-rounded text-[#fff] bg-[#1d7efd]`}>arrow_upward_alt</button>
+              </div>
+            </div>
+          </form>
+
+          <button className="material-symbols-rounded">light_mode</button>
+          <button className="material-symbols-rounded">delete</button>
+        </div>
+
+        <p className={`${Styles.disclaimer_text} text-center text-[0.9rem] pt-[16px] px-[20px]`}>Gemini can make mistakes, so double-check it.</p>
       </div>
     </div>
   )
