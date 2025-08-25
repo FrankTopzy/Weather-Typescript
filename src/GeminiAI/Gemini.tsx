@@ -5,12 +5,16 @@ import { useState, type FormEvent } from 'react';
 
 function Gemini() { 
   const [input, setInput] = useState<string>('');
+  const [userMessages, setUserMessages] = useState<string[]>([]);
 
+  //handle form submission
   const handleSubmission = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!input) return;
-    console.log(input.trim());
+
+    setUserMessages(prev => [...prev, input.trim()]);
+    //console.log(input.trim());
     setInput('')
   }
 
@@ -51,11 +55,15 @@ function Gemini() {
 
       {/* Suggestions List */}
       <div className={`${Styles.chats_container} flex gap-[20px] flex-col`}>
-        <div className={`${Styles.message} ${Styles.user_message} flex-col items-end`}>
-          <p className='py-[12px] px-[16px] max-w-[75%] rounded-tl-[13px] rounded-tr-[13px] rounded-br-[3px] rounded-bl-[13px] bg-[var(--secondary-color)]'>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam magnam accusantium corrupti mollitia modi quidem delectus soluta libero perspiciatis unde.
-          </p>
-        </div>
+        {userMessages.map(message => {
+          return (
+            <div className={`${Styles.message} ${Styles.user_message} flex-col items-end`} key={crypto.randomUUID()}>
+              <p className='py-[12px] px-[16px] max-w-[75%] rounded-tl-[13px] rounded-tr-[13px] rounded-br-[3px] rounded-bl-[13px] bg-[var(--secondary-color)]'>
+                {message}
+              </p>
+            </div>
+          )
+        })}
 
         <div className={`${Styles.message} ${Styles.bot_message} my-[9px] mx-auto`}>
           <img src={geminiLogo} alt="bot_logo" width='40' className='rounded-full bg-[var(--secondary-color)] border-[1px]  border-[var(--secondary-hover-color)] shrink-0 p-[6px] self-start mr-[-7px]'/>
