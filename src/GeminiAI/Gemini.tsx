@@ -1,11 +1,14 @@
 //import React from 'react'
 import Styles from './Gemini.module.css';
 import geminiLogo from '../../public/gemini-chatbot-logo.svg';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
+import { type Message } from '../Data/geminiApi';
 
 function Gemini() { 
   const [input, setInput] = useState<string>('');
-  const [userMessages, setUserMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  let nextId: number = 1;
 
   //handle form submission
   const handleSubmission = (e: FormEvent<HTMLFormElement>) => {
@@ -13,10 +16,27 @@ function Gemini() {
 
     if (!input) return;
 
-    setUserMessages(prev => [...prev, input.trim()]);
+    setMessages(prev => [...prev, {
+      id: nextId++,
+      sender: 'user',
+      text: input.trim()
+    }]);
+    
     //console.log(input.trim());
-    setInput('')
+    setInput('');
+
+    setTimeout(() => {
+      setMessages(prev => [...prev, {
+        id: nextId++,
+        sender: 'bot',
+        text: 'Just a sec...'
+      }]);
+    }, 1000)
   }
+
+  //handle bot's response 
+
+
 
   return (
     <div className={`${Styles.container} max-w-[980px] pt-[70px] pb-[60px] px-0 mx-[auto]`}>
@@ -55,22 +75,24 @@ function Gemini() {
 
       {/* Suggestions List */}
       <div className={`${Styles.chats_container} flex gap-[20px] flex-col`}>
-        {userMessages.map(message => {
+        {messages.map( message => {
           return (
-            <div className={`${Styles.message} ${Styles.user_message} flex-col items-end`} key={crypto.randomUUID()}>
-              <p className='py-[12px] px-[16px] max-w-[75%] rounded-tl-[13px] rounded-tr-[13px] rounded-br-[3px] rounded-bl-[13px] bg-[var(--secondary-color)]'>
-                {message}
-              </p>
-            </div>
+            message.sender === 'user' ? (
+              <div className={`${Styles.message} ${Styles.user_message} flex-col items-end`} key={crypto.randomUUID()}>
+                <p className='py-[12px] px-[16px] max-w-[75%] rounded-tl-[13px] rounded-tr-[13px] rounded-br-[3px] rounded-bl-[13px] bg-[var(--secondary-color)]'>
+                  {message.text}
+                </p>
+              </div>
+            ) : (
+              <div className={`${Styles.message} ${Styles.bot_message} flex items-center my-[9px] mx-auto`} key={crypto.randomUUID()}>
+                <img src={geminiLogo} alt="bot_logo" width='40' className={`rounded-full bg-[var(--secondary-color)] border-[1px]  border-[var(--secondary-hover-color)] shrink-0 p-[6px] self-start mr-[-7px] ${isLoading ? 'animate-pulse' : ''}`}/>
+                <p className='max-w-[75%]'>{message.text}</p>
+              </div>
+            )
           )
         })}
 
-        <div className={`${Styles.message} ${Styles.bot_message} my-[9px] mx-auto`}>
-          <img src={geminiLogo} alt="bot_logo" width='40' className='rounded-full bg-[var(--secondary-color)] border-[1px]  border-[var(--secondary-hover-color)] shrink-0 p-[6px] self-start mr-[-7px]'/>
-          <p className='max-w-[75%]'>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam magnam accusantium corrupti mollitia modi quidem delectus soluta libero perspiciatis unde.
-          </p>
-        </div>
+        
       </div>
 
       {/* Prompt Container */}
