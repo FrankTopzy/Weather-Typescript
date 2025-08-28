@@ -2,13 +2,19 @@
 import Styles from './Gemini.module.css';
 import geminiLogo from '../../public/gemini-chatbot-logo.svg';
 import { useEffect, useState, type FormEvent } from 'react';
+import { getApiResponse} from '../Data/getApi';
 import { type Message } from '../Data/geminiApi';
 
 function Gemini() { 
   const [input, setInput] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  let nextId: number = 1;
+  //let nextId: number = 1;
+
+  const API_KEY: string = 'AIzaSyAYqJV_8or3lVD0AsO9bTtEFzkiVBJQgxM'
+  const API_URL: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+
+  getApiResponse(API_URL, input);
 
   //handle form submission
   const handleSubmission = (e: FormEvent<HTMLFormElement>) => {
@@ -17,8 +23,8 @@ function Gemini() {
     if (!input) return;
 
     setMessages(prev => [...prev, {
-      id: nextId++,
-      sender: 'user',
+      id: Math.random(),
+      role: 'user',
       text: input.trim()
     }]);
     
@@ -27,12 +33,16 @@ function Gemini() {
 
     setTimeout(() => {
       setMessages(prev => [...prev, {
-        id: nextId++,
-        sender: 'bot',
+        id: Math.random(),
+        role: 'bot',
         text: 'Just a sec...'
       }]);
     }, 1000)
   }
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages])
 
   //handle bot's response 
 
@@ -77,7 +87,7 @@ function Gemini() {
       <div className={`${Styles.chats_container} flex gap-[20px] flex-col`}>
         {messages.map( message => {
           return (
-            message.sender === 'user' ? (
+            message.role === 'user' ? (
               <div className={`${Styles.message} ${Styles.user_message} flex-col items-end`} key={crypto.randomUUID()}>
                 <p className='py-[12px] px-[16px] max-w-[75%] rounded-tl-[13px] rounded-tr-[13px] rounded-br-[3px] rounded-bl-[13px] bg-[var(--secondary-color)]'>
                   {message.text}
